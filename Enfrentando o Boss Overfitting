@@ -1,0 +1,77 @@
+#include <iostream>
+#include <vector>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::vector;
+
+class FortalezaCodeMiner {
+public:
+    FortalezaCodeMiner(const vector<int>& equipamentos) : equipamentos_(equipamentos) {}
+
+    bool tem_equipamento(int equipamento) {
+        for (const auto& e : equipamentos_) {
+            if (e == equipamento) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+private:
+    vector<int> equipamentos_;
+};
+
+class BossOverfitting {
+public:
+    BossOverfitting(const vector<int>& pontos_fracos) : pontos_fracos_(pontos_fracos) {}
+
+    const vector<int>& pontos_fracos() const {
+        return pontos_fracos_;
+    }
+
+private:
+    vector<int> pontos_fracos_;
+};
+
+int main() {
+    vector<int> pontos_fracos_chefao;
+    vector<int> equipamentos_fortaleza;
+
+    int n;
+
+    // Lê os pontos fracos do Chefão Overfitting.
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        int ponto_fraco;
+        cin >> ponto_fraco;
+        pontos_fracos_chefao.push_back(ponto_fraco);
+    }
+
+    // Lê os equipamentos da Fortaleza dos CodeMiners.
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        int equipamento;
+        cin >> equipamento;
+        equipamentos_fortaleza.push_back(equipamento);
+    }
+
+    // Cria objetos dos tipos BossOverfitting e FortalezaCodeMiner
+    BossOverfitting chefao(pontos_fracos_chefao);
+    FortalezaCodeMiner fortaleza(equipamentos_fortaleza);
+
+    // Verifica se todos os pontos fracos do Chefão possuem equipamentos na Fortaleza
+    bool vitoria = true;
+    for (int ponto_fraco : chefao.pontos_fracos()) {
+        if (!fortaleza.tem_equipamento(ponto_fraco)) {
+            vitoria = false;
+            break;
+        }
+    }
+
+    // Imprime o resultado da batalha
+    cout << (vitoria ? "Vencemos!" : "Perdemos!") << endl;
+
+    return 0;
+}
